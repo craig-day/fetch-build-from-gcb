@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zendesk/fetch-build-from-gcb.git"
+    "url": "git+https://github.com/craig-day/fetch-build-from-gcb.git"
   },
   "author": "Craig Day",
-  "license": "private",
+  "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/zendesk/fetch-build-from-gcb/issues"
+    "url": "https://github.com/craig-day/fetch-build-from-gcb/issues"
   },
-  "homepage": "https://github.com/zendesk/fetch-build-from-gcb#readme",
+  "homepage": "https://github.com/craig-day/fetch-build-from-gcb#readme",
   "dependencies": {
     "@actions/core": "^1.2.3",
     "google-auth-library": "^6.0.0"

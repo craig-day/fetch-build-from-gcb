@@ -34,7 +34,7 @@ in your workflow you need to do the following things:
 
     ```yaml
     - id: find_digest
-      uses: zendesk/fetch-build-from-gcb
+      uses: craig-day/fetch-build-from-gcb@v1
       with:
         build_url: ${{ github.event.path-to-build-url }}
         target_image: my-app
@@ -44,7 +44,7 @@ in your workflow you need to do the following things:
 
 ## Usage
 
-### With a repo mirrored to GCR and GCB webhooks
+### With a repo mirrored to GCR and gets `status` GCB webhooks
 
 If your repository is mirrored into GCR and the build information appears on your repository with
 a PR status from `docker-images-180022`, then you need to have your workflow response to `status`
@@ -71,7 +71,7 @@ jobs:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
     - id: find_digest
-      uses: zendesk/fetch-build-from-gcb
+      uses: craig-day/fetch-build-from-gcb@v1
       with:
         build_url: ${{ github.event.target_url }}
         target_image: my-app
@@ -86,7 +86,7 @@ jobs:
         IMAGE_DIGEST: ${{ steps.find_digest.outputs.digest }}
 ```
 
-### With a repo connected to the GCB app and GCB check runs
+### With a repo connected to the GCB app and gets GCB `check_run`s
 
 If your repository is connected to the GCB app and the build information appears on your repository
 with a PR status from `Google Cloud Build`, then you need to have your workflow response to
@@ -116,7 +116,7 @@ jobs:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
     - id: find_digest
-      uses: zendesk/fetch-build-from-gcb
+      uses: craig-day/fetch-build-from-gcb@v1
       with:
         build_url: ${{ github.event.check_run.details_url }}
         target_image: fun-app
