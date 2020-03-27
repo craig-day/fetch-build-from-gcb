@@ -1,0 +1,23 @@
+{
+  "name": "fetch-build-from-gcb",
+  "version": "0.0.0",
+  "description": "",
+  "main": "action.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zendesk/fetch-build-from-gcb.git"
+  },
+  "author": "Craig Day",
+  "license": "private",
+  "bugs": {
+    "url": "https://github.com/zendesk/fetch-build-from-gcb/issues"
+  },
+  "homepage": "https://github.com/zendesk/fetch-build-from-gcb#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.3",
+    "google-auth-library": "^6.0.0"
+  }
+}
