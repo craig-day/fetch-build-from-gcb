@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - action.yml
+      - action.js
+      - package.json
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - id: compute_tag
+        uses: craig-day/compute-tag@v3
+        with:
+          repository: ${{ github.repository }}
+          github_token: ${{ github.token }}
+          prerelease: true
+
+      - name: create release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ steps.compute_tag.outputs.next_tag }}
+          release_name: ${{ steps.compute_tag.outputs.next_tag }}
+          body: >
+            Automatic release of ${{ steps.compute_tag.outputs.next_tag }}
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

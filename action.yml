@@ -13,6 +13,9 @@ inputs:
   target_image:
     description: The name of the image to find the digest for
     required: true
+  google_application_credentials:
+    description: Service account credentials for your Google Cloud project
+    required: true
 
 outputs:
   digest:

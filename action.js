@@ -8,15 +8,17 @@ function buildId() {
 }
 
 async function fetchBuild(buildId) {
+  const creds = JSON.parse(
+    core.getInput('google_application_credentials', { required: true })
+  )
   const auth = new GoogleAuth({
     scopes: 'https://www.googleapis.com/auth/cloud-platform',
   })
 
-  const client = await auth.getClient()
-  const projectId = await auth.getProjectId()
+  const client = auth.fromJSON(creds)
 
   const response = await client.request({
-    url: `https://cloudbuild.googleapis.com/v1/projects/${projectId}/builds/${buildId}`,
+    url: `https://cloudbuild.googleapis.com/v1/projects/${creds.project_id}/builds/${buildId}`,
   })
 
   const targetImage = core.getInput('target_image')
