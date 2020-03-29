@@ -1,6 +1,9 @@
 name: Fetch Image Digest from GCB
 description: Use the GCB API to extract the Docker digest of a build completed for a given git SHA.
 author: Craig Day
+branding:
+  icon: code
+  color: blue
 
 runs:
   using: node12
