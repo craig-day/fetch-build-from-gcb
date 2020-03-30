@@ -6,11 +6,15 @@ A Github action to fetch a given build from GCB and extract the docker digest of
 
 | Parameter                        | Description                                               | Required | Default |
 | -------------------------------- | --------------------------------------------------------- | -------- | ------- |
-| `build_url`                      | The link to the GCB build so we can extract the build ID  | Y        | N/A     |
 | `target_image`                   | The name of the image to find the digest for              | Y        | N/A     |
 | `google_application_credentials` | Service account credentials for your Google Cloud project | Y        | N/A     |
 
 ## Output
+
+The action will automatically inspect the event payload and only set the output on when a successful
+GCB build has been found and parsed. It will however, still "succeed" as long as the event is valid,
+but it will not set the `digest` output. **For this reason, it is highly recommended that you guard
+the job with the `if` condition found in the appropriate example below.**
 
 - `digest` The SHA256 docker digest of the image.
 
@@ -21,7 +25,7 @@ This action uses a Google Cloud service account to fetch build information from 
 ### With a repo mirrored to GCR and gets `status` GCB webhooks
 
 If your repository is mirrored into GCR and the build information appears on your repository with
-a PR status from `my-gcp-project`, then you need to have your workflow response to `status` events.
+a PR status from `my-project-1234`, then you need to have your workflow response to `status` events.
 
 If your build creates an image tagged as `my-app:{commit_sha}`, then your workflow might look like
 this:
@@ -39,7 +43,6 @@ jobs:
     - id: find_digest
       uses: craig-day/fetch-build-from-gcb@v2
       with:
-        build_url: ${{ github.event.target_url }}
         target_image: my-app
         google_application_credentials: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
@@ -74,7 +77,6 @@ jobs:
     - id: find_digest
       uses: craig-day/fetch-build-from-gcb@v2
       with:
-        build_url: ${{ github.event.check_run.details_url }}
         target_image: fun-app
         google_application_credentials: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 

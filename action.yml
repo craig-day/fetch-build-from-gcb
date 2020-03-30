@@ -10,9 +10,6 @@ runs:
   main: action.js
 
 inputs:
-  build_url:
-    description: The link to the GCB build so we can extract the build ID
-    required: true
   target_image:
     description: The name of the image to find the digest for
     required: true
