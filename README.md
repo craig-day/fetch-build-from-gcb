@@ -1,5 +1,7 @@
 # Fetch Build from GCB
 
+![Latest Release](https://img.shields.io/github/v/release/craig-day/fetch-build-from-gcb?label=Latest%20Release)
+
 A Github action to fetch a given build from GCB and extract the docker digest of a target image.
 
 ## Inputs
