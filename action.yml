@@ -20,3 +20,5 @@ inputs:
 outputs:
   digest:
     description: The Docker digest for the image pulled from GCB
+  sha:
+    description: The git sha associated with the image, if available

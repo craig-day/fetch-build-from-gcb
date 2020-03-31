@@ -32,7 +32,7 @@ function buildId() {
   return url.pathname.split('/').pop()
 }
 
-async function fetchDigest() {
+async function fetchBuild() {
   const creds = JSON.parse(
     core.getInput('google_application_credentials', { required: true })
   )
@@ -48,8 +48,11 @@ async function fetchDigest() {
 
   const response = await client.request({ url })
 
+  return response.data
+}
+
+function fetchDigest(build) {
   const targetImage = core.getInput('target_image', { required: true })
-  const build = response.data
 
   if (build.status.toUpperCase() != 'SUCCESS') {
     core.setFailed(`Build ${build.id} was not successful`)
@@ -65,6 +68,20 @@ async function fetchDigest() {
     }
 
     return image.digest
+  }
+}
+
+function fetchSha(build) {
+  const source = build.sourceProvenance
+
+  if (source.hasOwnProperty('resolvedRepoSource')) {
+    return source.resolvedRepoSource.commitSha
+  } else if (source.hasOwnProperty('resolvedStorageSource')) {
+    const object = source.resolvedStorageSource.object
+
+    return object.split('-')[0]
+  } else {
+    return null
   }
 }
 
@@ -87,7 +104,15 @@ async function run() {
   }
 
   if (isGCB) {
-    core.setOutput('digest', await fetchDigest())
+    const build = await fetchBuild()
+    const digest = fetchDigest(build)
+    const sha = fetchSha(build)
+
+    core.setOutput('digest', digest)
+
+    if (sha) {
+      core.setOutput('sha', sha)
+    }
   } else {
     core.warning('Event does not appear to be from GCB, ignoring')
   }

@@ -19,6 +19,7 @@ but it will not set the `digest` output. **For this reason, it is highly recomme
 the job with the `if` condition found in the appropriate example below.**
 
 - `digest` The SHA256 docker digest of the image.
+- `sha` The git SHA associated with the image if available.
 
 ## Usage
 
