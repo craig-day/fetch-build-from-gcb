@@ -44,7 +44,7 @@ jobs:
         contains(github.event.description, 'GCB build')
   steps:
     - id: find_digest
-      uses: craig-day/fetch-build-from-gcb@v3
+      uses: craig-day/fetch-build-from-gcb@v4
       with:
         target_image: my-app
         google_application_credentials: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
@@ -78,7 +78,7 @@ jobs:
         github.event.check_run.conclusion == 'success'
   steps:
     - id: find_digest
-      uses: craig-day/fetch-build-from-gcb@v3
+      uses: craig-day/fetch-build-from-gcb@v4
       with:
         target_image: fun-app
         google_application_credentials: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
